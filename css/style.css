@@ -1,0 +1,129 @@
+body {
+  color: #fff;
+  margin: 0;
+  font-size: 1.4rem;
+  font-weight: 400;
+  line-height: 1.43;
+  letter-spacing: 0.01071em;
+  background-color: #1d2028;
+  width: 100%;
+  min-height: 100vh;
+}
+
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+}
+
+.main-container {
+  height: 100%;
+  margin: 2rem;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  align-items: center;
+}
+
+.search-input {
+  width: 90%;
+  height: 2.6rem;
+  margin-top: 6rem;
+  border-radius: 5px;
+  background-color: #2a2a2a;
+  color: #fff;
+  border: 0;
+  font-size: 1rem;
+  padding: 0.4rem 1rem;
+}
+
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 4rem;
+  background-color: #1d2028;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  border-bottom: 0.005rem solid grey;
+  border-radius: 0.5em;
+}
+
+header p {
+  padding-right: 2rem;
+  font-size: 1rem;
+}
+
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  padding-top: 6rem;
+  justify-content: center;
+  align-items: center;
+  width: 90%;
+  height: calc(100vh - 15.5rem);
+  overflow: scroll;
+}
+
+.card-container::-webkit-scrollbar {
+  display: none;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.movie-card {
+  width: 10rem;
+  height: 14rem;
+  padding: 0 0.5rem 0.5rem 0.5rem;
+  cursor: pointer;
+}
+
+.movie-card img {
+  width: 100%;
+  height: 100%;
+  opacity: 1;
+  display: block;
+  transition: .5s ease;
+  backface-visibility: hidden;
+}
+
+.middle {
+  transition: .5s ease;
+  opacity: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.text {
+  background-color: #04AA6D;
+  color: white;
+  font-size: 16px;
+  padding: 16px 32px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+}
+
+.movie-card:hover img {
+  opacity: 0.3;
+}
+
+.movie-card:hover .middle {
+  opacity: 1;
+}
+
+.loader {
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
