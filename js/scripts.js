@@ -1,6 +1,7 @@
 let pageIndexState = 1;
 let isLoading = false;
-
+const searchSubmit = document.querySelector(".search-input");
+const serchText = document.querySelector("#search-text");
 
 // function fetch the movie data
 const fetchPageData = (pageIndex = pageIndexState) => {
@@ -31,7 +32,8 @@ const fetchPageData = (pageIndex = pageIndexState) => {
 }
 
 // function fetch the movie data once user searches
-const fetchSearchData = (pageIndex = pageIndexState, searchText ="get:new7") => {
+const fetchSearchData = (pageIndex = 1) => {
+    const searchText = serchText.value || "get:new7";
     const movieCards = document.querySelector(".card-container");
     let htmlCode = `
         <div class="loader">
@@ -39,7 +41,7 @@ const fetchSearchData = (pageIndex = pageIndexState, searchText ="get:new7") => 
         </div>
     `
     isLoading = true;
-    movieCards.innerHTML = movieCards.innerHTML + htmlCode;
+    movieCards.innerHTML = htmlCode;
     return fetch(`https://unogs-unogs-v1.p.rapidapi.com/aaapi.cgi?q=${searchText}-!1900%2C2018-!0%2C5-!0%2C10-!0-!Any-!Any-!Any-!gt100-!%7Bdownloadable%7D&t=ns&cl=all&st=adv&ob=Relevance&p=${pageIndex}&sa=and`, {
         "method": "GET",
         "headers": {
@@ -88,6 +90,8 @@ document.querySelector(".card-container").addEventListener("scroll", function ()
 });
 
 window.onload = () => {
+    console.log("hgjhjgjkjkjhjkkjbkjjkkjbkjbjkjhg");
+
     // fetch page data is called when page is rendered
     fetchPageData();
 };
