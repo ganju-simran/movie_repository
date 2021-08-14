@@ -106,6 +106,10 @@ header p {
   backface-visibility: hidden;
 }
 
+.lazy {
+  background-color: #c2c2c2;
+}
+
 .middle {
   transition: .5s ease;
   opacity: 0;

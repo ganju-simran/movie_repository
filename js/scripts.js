@@ -5,17 +5,33 @@ const serchText = document.querySelector("#search-text");
 let isSearching = false;
 let alreadyCalling = false;
 
+const config = {
+    root: document.querySelector(".card-container"),
+    threshold: 0
+};
+
+let observer = new IntersectionObserver(function (entries, self) {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            const image = entry.target;
+            image.src = image.dataset.src;
+            image.classList.remove("lazy");
+            self.unobserve(entry.target);
+        }
+    });
+}, config);
+
 // function to render cards once movie data is fetched
 const renderMovieCards = (movieData, initial = true) => {
     const movieCards = document.querySelector(".card-container");
     movieCards.removeChild(movieCards.lastChild.previousSibling);
     let htmlCode = initial ? '' : movieCards.innerHTML;
     isLoading = false;
-    movieData.ITEMS.forEach(element => {
+    movieData.ITEMS.forEach((element, index) => {
         htmlCode = htmlCode +
             `
             <div class="movie-card">
-                    <img alt=${element.title} loading="lazy" src=${element.image}>
+                    <img alt=${element.title} loading="lazy" class="lazy" data-src=${element.image} />
                     <div class="middle">
                     </div>
             </div>
@@ -23,6 +39,10 @@ const renderMovieCards = (movieData, initial = true) => {
     });
 
     movieCards.innerHTML = htmlCode;
+    const imgs = document.querySelectorAll('[data-src]');
+    imgs.forEach(img => {
+        observer.observe(img);
+    });
 }
 
 // function fetch the movie data
@@ -72,7 +92,7 @@ const fetchSearchData = () => {
 
 // event listener on the card container div scroll to call api when scrollbar reaches to the bottom of the div
 document.querySelector(".card-container").addEventListener("scroll", function () {
-    var myDiv = document.querySelector(".card-container");
+    let myDiv = document.querySelector(".card-container");
     if (myDiv.offsetHeight + myDiv.scrollTop >= myDiv.scrollHeight && !isLoading && !alreadyCalling) {
         fetchPageData(isSearching ? serchText.value : null);
     }
