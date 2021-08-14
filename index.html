@@ -1,5 +1,5 @@
 <!doctype html>
-<html class="no-js" lang="">
+<html class="no-js" lang="en">
 
 <head>
     <meta charset="utf-8">
@@ -13,18 +13,17 @@
 
 <body>
     <header>
-        <p>👋 Hi, Zivame!</p>
+        <h1 class="header-text">👋 Hi, Zivame!</h1>
     </header>
-    <div class="main-container">
-        <div class="search-box">
+    <main class="main-container">
+        <section class="search-box">
             <input autocomplete="off" class="search-input" id="search-text" role="search"
                 aria-label="Search through site content" placeholder="Search for movies ..." type="text" value="">
-            <button class="search-button" onclick="fetchSearchData()"><i class="fa fa-search"></i></button>
-        </div>
-        <div class="card-container">
-        </div>
-
-    </div>
+            <button class="search-button"  aria-label="triggers search" onclick="fetchSearchData()"><i class="fa fa-search"></i></button>
+        </section>
+        <section class="card-container" aria-label="movie cards list">
+        </section>
+    </main>
     <script src="js/scripts.js"></script>
 </body>
 
