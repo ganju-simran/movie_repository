@@ -66,6 +66,7 @@ const fetchPageData = (queryText) => {
         .then(response =>
             response.json().then(result => {
                 alreadyCalling = false;
+                // if there are no more items for a particular search display no search data
                 if (queryText && result.ITEMS.length == result.COUNT) {
                     isSearching = false;
                 }
