@@ -3,13 +3,35 @@ let isLoading = false;
 const searchSubmit = document.querySelector(".search-input");
 const serchText = document.querySelector("#search-text");
 let isSearching = false;
+let alreadyCalling = false;
+
+// function to render cards once movie data is fetched
+const renderMovieCards = (movieData, initial = true) => {
+    const movieCards = document.querySelector(".card-container");
+    movieCards.removeChild(movieCards.lastChild.previousSibling);
+    let htmlCode = initial ? '' : movieCards.innerHTML;
+    isLoading = false;
+    movieData.ITEMS.forEach(element => {
+        htmlCode = htmlCode +
+            `
+            <div class="movie-card">
+                    <img alt=${element.title} loading="lazy" src=${element.image}>
+                    <div class="middle">
+                    </div>
+            </div>
+        `
+    });
+
+    movieCards.innerHTML = htmlCode;
+}
 
 // function fetch the movie data
 const fetchPageData = (queryText) => {
+    alreadyCalling = true;
     const movieCards = document.querySelector(".card-container");
     let htmlCode = `
         <div class="loader">
-            <img  alt="loader.gif" src="https://i.gifer.com/origin/dd/dd9538796fae4795531f8219af8a181c.gif">
+            <img alt="loader.gif" src="https://i.gifer.com/origin/dd/dd9538796fae4795531f8219af8a181c.gif">
         </div>
     `
     isLoading = true;
@@ -23,6 +45,7 @@ const fetchPageData = (queryText) => {
     })
         .then(response =>
             response.json().then(result => {
+                alreadyCalling = false;
                 if (queryText && result.ITEMS.length == result.COUNT) {
                     isSearching = false;
                 }
@@ -31,6 +54,7 @@ const fetchPageData = (queryText) => {
             })
         )
         .catch(err => {
+            alreadyCalling = false;
             console.error(err);
         });
 }
@@ -46,31 +70,10 @@ const fetchSearchData = () => {
     fetchPageData(searchValue);
 }
 
-// function to render cards once movie data is fetched
-const renderMovieCards = (movieData, initial = true) => {
-    const movieCards = document.querySelector(".card-container");
-    movieCards.removeChild(movieCards.lastChild.previousSibling);
-    let htmlCode = initial ? '' : movieCards.innerHTML;
-    isLoading = false;
-    movieData.ITEMS.forEach(element => {
-        htmlCode = htmlCode +
-            `
-            <div class="movie-card">
-                    <img alt=${element.title}
-                        src=${element.image}>
-                    <div class="middle">
-                    </div>
-            </div>
-        `
-    });
-
-    movieCards.innerHTML = htmlCode;
-}
-
 // event listener on the card container div scroll to call api when scrollbar reaches to the bottom of the div
 document.querySelector(".card-container").addEventListener("scroll", function () {
     var myDiv = document.querySelector(".card-container");
-    if (myDiv.offsetHeight + myDiv.scrollTop >= myDiv.scrollHeight && !isLoading) {
+    if (myDiv.offsetHeight + myDiv.scrollTop >= myDiv.scrollHeight && !isLoading && !alreadyCalling) {
         fetchPageData(isSearching ? serchText.value : null);
     }
 });
