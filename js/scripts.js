@@ -38,6 +38,12 @@ const renderMovieCards = (movieData, initial = true) => {
         `
     });
 
+    console.log()
+
+    if (!movieData.ITEMS.length) {
+        htmlCode = htmlCode + `<p>No data to display</p>`
+    }
+
     movieCards.innerHTML = htmlCode;
     const imgs = document.querySelectorAll('[data-src]');
     imgs.forEach(img => {
