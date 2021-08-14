@@ -30,7 +30,7 @@ const renderMovieCards = (movieData, initial = true) => {
     movieData.ITEMS.forEach((element, index) => {
         htmlCode = htmlCode +
             `
-            <div class="movie-card">
+            <div role="listitem" class="movie-card" aria-label="movie card">
                     <img alt=${element.title} loading="lazy" class="lazy" data-src=${element.image} />
                     <div class="middle">
                     </div>
@@ -51,7 +51,7 @@ const fetchPageData = (queryText) => {
     const movieCards = document.querySelector(".card-container");
     let htmlCode = `
         <div class="loader">
-            <img alt="loader.gif" src="https://i.gifer.com/origin/dd/dd9538796fae4795531f8219af8a181c.gif">
+            <img alt="loading data" src="https://i.gifer.com/origin/dd/dd9538796fae4795531f8219af8a181c.gif">
         </div>
     `
     isLoading = true;

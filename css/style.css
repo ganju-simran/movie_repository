@@ -17,6 +17,11 @@ select:focus {
   outline: none;
 }
 
+.header-text {
+  font-size: 1rem;
+  padding: 0 1rem;
+}
+
 .main-container {
   height: 100%;
   margin: 2rem;
